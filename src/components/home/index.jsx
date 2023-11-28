@@ -1,8 +1,8 @@
-import backgroundHero from '../../../public/hero1.jpeg'
+// import backgroundHero from '../../../public/hero1.jpg'
 export default function Home() {
   return (
     <section
-    style={{ backgroundImage: `url(${backgroundHero})` }} className=' bgOverlay relative'>
+    style={{ backgroundImage: `url(${window.location.origin + '/hero1.jpg'})` }} className=' bgOverlay relative'>
     <div
       className="mx-auto max-w-screen-xl px-4 py-28 lg:flex lg:h-[90vh] lg:items-center relative"
     >
