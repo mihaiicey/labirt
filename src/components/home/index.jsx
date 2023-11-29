@@ -1,4 +1,6 @@
+
 export default function Home() {
+  const urlKey = 'test123' //process.env.REACT_PUBLIC_SUPABASE_URL;
   return (
     <section
     style={{ backgroundImage: `url(${window.location.origin + '/hero1.jpg'})` }} className=' bgOverlay relative'>
@@ -17,7 +19,7 @@ export default function Home() {
         Rezerva o masa la restaurantul tau preferat, simplu si rapid.
         </p>
   
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
+        <div className="mt-8 flex justify-center">
           <a
             className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
             href="/login"
@@ -25,6 +27,7 @@ export default function Home() {
             Intra in cont
           </a>
         </div>
+        Test env: {urlKey}
       </div>
     </div>
   </section>
