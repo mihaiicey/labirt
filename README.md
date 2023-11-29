@@ -1,8 +1,30 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# labirt.icey.dev
 
-Currently, two official plugins are available:
+Platforma online de rezervari la restaurante
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+# Ce poate face utilizatorul
+
+Se inregistreaza pe platorma folosind metoda clasica de login sau opteaza pentru login cu github / google
+
+Ce poate sa faca pe cont:
+1. Rezervare
+    - nr. de persoane
+    - data rezervarii - azi/alta data.
+    - ora la care vrea rezervarea
+    - Mentiuni - Ex: As dori un scaun pentru copii.
+    - Bonus - poate lasa recenzie pe platforma
+
+2. Isi poate edita contul cu:
+    - nume, prenume
+    - adresa
+    - parola
+    - altele...
+
+# Ce poate face administratorul de restaurant/restaurante
+1. Adminstreaza rezervarile
+    - sterge sau editeaza
+
+
+    ---va continua.
