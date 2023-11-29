@@ -20,7 +20,12 @@ p,button {
 .fontDmSans {
   font-family: "Maven Pro", sans-serif;
 }
-
+label{
+  @apply block mb-2 text-sm font-medium text-gray-900
+}
+input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5
+}
 /* .bgOverlay::after{
   content: "";
     position: absolute;

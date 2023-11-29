@@ -1,27 +1,25 @@
 import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
-// import userLogo from '../../../../public/user.jpeg'
+import { NavLink } from "react-router-dom";
+
 export default function UserMen() {
-    const [customOpen, setCustomOpen] = useState(false);
+  const [customOpen, setCustomOpen] = useState(false);
 
-    function buttonClicked() {
-        setCustomOpen(prev => !prev);
-      }
-    function customButonFct(){
-
-    }
+  function buttonClicked() {
+    setCustomOpen((prev) => !prev);
+  }
+  function customButonFct() {}
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="relative" >
+        <Menu.Button className="relative">
           <img
             src={window.location.origin + "/user.jpeg"}
             alt="User"
             className={`w-10 h-10 rounded-full object-cover border-secondary border`}
           />
         </Menu.Button>
-
       </div>
       <Transition
         as={Fragment}
@@ -36,37 +34,40 @@ export default function UserMen() {
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
-                <button
+                <NavLink
+                  to="/login"
                   className={`${
-                    active ? "bg-primary text-black" : "text-gray-900"
+                    active ? "bg-utOrange text-black" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Intra in cont
-                </button>
+                </NavLink>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <button
+                <NavLink
+                  to="/register"
                   className={`${
-                    active ? "bg-primary text-black" : "text-gray-900"
+                    active ? "bg-utOrange text-black" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Creaza cont
-                </button>
+                </NavLink>
               )}
             </Menu.Item>
           </div>
           <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
-                <button
+                <NavLink
+                  to="/singout"
                   className={`${
-                    active ? "bg-primary text-black" : "text-gray-900"
+                    active ? "bg-utOrange text-black" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Deconectare
-                </button>
+                </NavLink>
               )}
             </Menu.Item>
           </div>
