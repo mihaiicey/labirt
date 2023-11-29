@@ -1,5 +1,5 @@
 
-# labirt.icey.dev
+# labirt.icey.dev - demo
 
 Platforma online de rezervari la restaurante
 
@@ -25,6 +25,6 @@ Ce poate sa faca pe cont:
 # Ce poate face administratorul de restaurant/restaurante
 1. Adminstreaza rezervarile
     - sterge sau editeaza
-
-
-    ---va continua.
+    - va urma
+  
+# Demo - [Vezi live aici - https://labirt.icey.dev](https://labirt.icey.dev)
