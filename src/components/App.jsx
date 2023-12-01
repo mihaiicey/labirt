@@ -3,8 +3,8 @@ import { AuthProvider } from '../contexts/Auth'
 import { ToastContainer } from "react-toastify";
 import HomePage from './home'
 import Nav from "./Nav";
-import RegisterClient from "./Auth/Register";
-import LoginClient from "./auth/Login";
+import RegisterClient from "./LogReg/Register";
+import LoginClient from "./LogReg/Login";
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export default function App() {
