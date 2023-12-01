@@ -2,23 +2,26 @@ import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from '../../../contexts/Auth'
 
 export default function UserMen() {
   const [customOpen, setCustomOpen] = useState(false);
-
+  const isSession = useAuth()
   function buttonClicked() {
     setCustomOpen((prev) => !prev);
   }
-  function customButonFct() {}
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="relative">
-          <img
+          {isSession ? (<img
             src={window.location.origin + "/user.jpeg"}
             alt="User"
             className={`w-10 h-10 rounded-full object-cover border-secondary border`}
-          />
+          />) : (
+            <a href="">Login</a>
+          )}
+
         </Menu.Button>
       </div>
       <Transition
@@ -36,9 +39,8 @@ export default function UserMen() {
               {({ active }) => (
                 <NavLink
                   to="/login"
-                  className={`${
-                    active ? "bg-utOrange text-black" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Intra in cont
                 </NavLink>
@@ -48,9 +50,8 @@ export default function UserMen() {
               {({ active }) => (
                 <NavLink
                   to="/register"
-                  className={`${
-                    active ? "bg-utOrange text-black" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Creaza cont
                 </NavLink>
@@ -62,9 +63,8 @@ export default function UserMen() {
               {({ active }) => (
                 <NavLink
                   to="/singout"
-                  className={`${
-                    active ? "bg-utOrange text-black" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   Deconectare
                 </NavLink>
