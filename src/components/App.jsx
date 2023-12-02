@@ -3,8 +3,9 @@ import { AuthProvider } from '../contexts/Auth'
 import { ToastContainer } from "react-toastify";
 import HomePage from './home'
 import Nav from "./Nav";
-import RegisterClient from "./LogReg/Register";
-import LoginClient from "./LogReg/Login";
+// import RegisterClient from "./LogReg/Register";
+import LoginUser from "./LogReg/Login";
+import MyAccount from "./MyAccount";
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export default function App() {
@@ -13,9 +14,11 @@ export default function App() {
       <AuthProvider>
         <Nav />
         <Routes>
-          <Route path="/register" element={<RegisterClient />} />
-          <Route path="/login" element={<LoginClient />} />
+          {/* <Route path="/register" element={<RegisterClient />} /> */}
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/register" element={<LoginUser />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/my-account" element={<MyAccount/>} />
         </Routes>
         <ToastContainer
           position="top-right"
