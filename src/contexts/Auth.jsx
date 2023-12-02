@@ -8,30 +8,45 @@ import { supabase } from '../supabase';
  */
 
 
-const AuthContext = React.createContext();
+ const AuthContext = React.createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-export function AuthProvider({ children }) {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session ?? null);
-    });
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session ?? null);
-    });
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  return (
-    <AuthContext.Provider value={session}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+ export function useAuth() {
+   return useContext(AuthContext);
+ }
+ 
+ export function AuthProvider({ children }) {
+   const [session, setSession] = useState(null);
+ 
+   useEffect(() => {
+     supabase.auth.getSession().then(({ data: { session } }) => {
+       setSession(session ?? null);
+     });
+ 
+     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+       setSession(session ?? null);
+     });
+ 
+     return () => {
+       authListener.subscription.unsubscribe();
+     };
+   }, []);
+ 
+   const signOut = async () => {
+     const { error } = await supabase.auth.signOut();
+     if (error) {
+       console.error('Eroare la deconectare:', error);
+     }
+     setSession(null);
+   };
+ 
+   const value = {
+     session,
+     signOut,
+   };
+ 
+   return (
+     <AuthContext.Provider value={value}>
+       {children}
+     </AuthContext.Provider>
+   );
+ }

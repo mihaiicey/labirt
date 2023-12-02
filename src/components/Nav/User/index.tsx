@@ -1,25 +1,32 @@
 import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from '../../../contexts/Auth'
 
 export default function UserMen() {
+  const navigate = useNavigate();
+
   const [customOpen, setCustomOpen] = useState(false);
-  const isSession = useAuth()
-  function buttonClicked() {
-    setCustomOpen((prev) => !prev);
+  const { session, signOut } = useAuth();
+
+  async function handleSignOut() {
+    await signOut()
+    navigate('/login')
   }
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="relative">
-          {isSession ? (<img
-            src={window.location.origin + "/user.jpeg"}
-            alt="User"
-            className={`w-10 h-10 rounded-full object-cover border-secondary border`}
-          />) : (
-            <a href="">Login</a>
+          {session ? (
+            <img
+              src={window.location.origin + "/user.jpeg"}
+              alt="User"
+              className={`w-10 h-10 rounded-full object-cover border-secondary border`}
+            />
+          ) : (
+            <span className="px-2 py-1 rounded-md bg-primary text-white font-semibold">Autentifica-te</span>
           )}
 
         </Menu.Button>
@@ -34,43 +41,60 @@ export default function UserMen() {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-          <div className="px-1 py-1 ">
-            <Menu.Item>
-              {({ active }) => (
-                <NavLink
-                  to="/login"
-                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2`}
-                >
-                  Intra in cont
-                </NavLink>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <NavLink
-                  to="/register"
-                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2`}
-                >
-                  Creaza cont
-                </NavLink>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <NavLink
-                  to="/singout"
-                  className={`${active ? "bg-utOrange text-black" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2`}
-                >
-                  Deconectare
-                </NavLink>
-              )}
-            </Menu.Item>
-          </div>
+          {!session && (
+            <div className="px-1 py-1 font-normal">
+              <Menu.Item>
+                {({ active }) => (
+                  <NavLink
+                    to="/login"
+                    className={`${active ? "text-primary underline" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2`}
+                  >
+                    Intra in cont
+                  </NavLink>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <NavLink
+                    to="/register"
+                    className={`${active ? "text-primary underline" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2`}
+                  >
+                    Creaza cont
+                  </NavLink>
+                )}
+              </Menu.Item>
+            </div>
+          )}
+
+          {session != null && (
+            <div className="px-1 py-1">
+              <Menu.Item>
+                {({ active }) => (
+                  <NavLink
+                    to="/my-account"
+                    className={`${active ? "text-primary underline" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2`}
+                  >
+                    Contul meu
+                  </NavLink>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={handleSignOut}
+                    className={`${active ? "text-primary underline" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2`}
+                  >
+                    Deconectare
+                  </button>
+                )}
+              </Menu.Item>
+            </div>
+          )}
+
         </Menu.Items>
       </Transition>
     </Menu>

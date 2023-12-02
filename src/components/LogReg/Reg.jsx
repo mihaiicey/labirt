@@ -8,16 +8,22 @@ import { supabase } from '../../supabase';
 import { toast } from 'react-toastify';
 import { toastStandard } from "../../lib/cofigs";
 import { HiEye, HiEyeSlash } from 'react-icons/hi2';
+import { sessionCheck } from '../../hooks/sessionChec';
 
 // Schema de validare Yup
 const registerSchema = yup.object().shape({
   firstName: yup.string().required('Prenumele este necesar'),
   lastName: yup.string().required('Numele este necesar'),
   email: yup.string().email('Email invalid').required('Email-ul este necesar'),
-  password: yup.string().required('Parola este necesară').min(6, 'Parola trebuie să aibă cel puțin 6 caractere'),
+  password: yup.string().required('Parola este necesară').min(8, 'Parola trebuie să aibă cel puțin 8 caractere'),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Parolele trebuie să coincidă')
+    .required('Confirmarea parolei este necesară')
 });
 
 export default function RegisterClient() {
+  sessionCheck('/my-account');
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -27,7 +33,7 @@ export default function RegisterClient() {
       email: data.email,
       password: data.password,
       options: {
-        data: { firstName: data.firstName, lastName: data.lastName , gender: null, user_role: 'client'  }
+        data: { firstName: data.firstName, lastName: data.lastName, gender: null, user_role: 'client' }
       }
     });
 
@@ -44,7 +50,7 @@ export default function RegisterClient() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24 lg:py-0">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10 md:mt-24 lg:py-0">
       <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
         <LiaBeerSolid className="text-2xl fill-primary" /> LaBirt.ro
       </h1>
@@ -99,6 +105,17 @@ export default function RegisterClient() {
                 className={`input ${errors.password ? 'is-invalid' : ''}`}
               />
               <p className="text-red-600 text-sm">{errors.password?.message}</p>
+            </div>
+            <div>
+              <label htmlFor="confirmPassword">Confirmare Parolă</label>
+              <input
+                type="password"
+                {...register("confirmPassword")}
+                id="confirmPassword"
+                placeholder="••••••••"
+                className={`input ${errors.confirmPassword ? 'is-invalid' : ''}`}
+              />
+              <p className="text-red-600 text-sm">{errors.confirmPassword?.message}</p>
             </div>
             <button
               type="submit"
