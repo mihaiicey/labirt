@@ -1,5 +1,5 @@
 
-export default function HomePage() {
+export default function Home() {
   return (
     <section
       style={{ backgroundImage: `url(${window.location.origin + '/hero1.jpg'})` }} className='relative bg-no-repeat	bg-cover bg-center'>
