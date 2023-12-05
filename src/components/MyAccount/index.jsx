@@ -58,7 +58,6 @@ export default function MyAccount() {
       });
     }
   };
-  console.log(user)
   return (
     <div className="container px-5 md:mx-auto mt-12">
       <h1 className="text-xl sm:text-3xl font-semibold pb-1 border-b-2 border-b-primary">
@@ -67,7 +66,7 @@ export default function MyAccount() {
           - {user?.user_metadata?.user_role || user}
         </span>
       </h1>
-    <div className="max-w-4xl m">
+    <div className="max-w-4xl">
     <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
