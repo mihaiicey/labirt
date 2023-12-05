@@ -1,8 +1,12 @@
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/Auth";
+import heroImg from '../../assets/hero1.jpg';
 
 export default function Home() {
+  const {user} = useAuth()
   return (
     <section
-      style={{ backgroundImage: `url(${window.location.origin + '/hero1.jpg'})` }} className='relative bg-no-repeat	bg-cover bg-center'>
+    style={{ backgroundImage: `url(${heroImg})` }} className='relative bg-no-repeat	bg-cover bg-center'>
       <div
         className="mx-auto max-w-screen-xl px-4 py-28 lg:flex lg:h-[90vh] lg:items-center relative"
       >
@@ -17,12 +21,15 @@ export default function Home() {
             Rezerva o masa la restaurantul tau preferat, simplu si rapid.
           </p>
           <div className="mt-8 flex justify-center">
-            <a
+            {user ? (<></>)
+            :(
+              <Navigate
+              to="/login"
               className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
-              href="/login"
             >
               Intra in cont
-            </a>
+            </Navigate>
+            )}
           </div>
         </div>
       </div>
