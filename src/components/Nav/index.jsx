@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { LiaBeerSolid } from "react-icons/lia";
 import UserMen from './User';
-import { BrandNavLink } from '../../features/ui';
+import { BrandNavLink } from '../../features/BrandNavLink';
 import { navItems } from './navItems';
 export default function Nav() {
     return (

@@ -1,48 +1,67 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { LiaBeerSolid } from 'react-icons/lia';
-import { NavLink } from 'react-router-dom';
-import { supabase } from '../../supabase';
-import { toast } from 'react-toastify';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/Auth";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { LiaBeerSolid } from "react-icons/lia";
+import { NavLink } from "react-router-dom";
+import { supabase } from "../../supabase";
+import { toast } from "react-toastify";
 import { toastStandard } from "../../lib/cofigs";
-import { HiEye, HiEyeSlash } from 'react-icons/hi2';
+import { HiEye, HiEyeSlash } from "react-icons/hi2";
 
 // Schema de validare Yup
 const registerSchema = yup.object().shape({
-  firstName: yup.string().required('Prenumele este necesar'),
-  lastName: yup.string().required('Numele este necesar'),
-  email: yup.string().email('Email invalid').required('Email-ul este necesar'),
-  password: yup.string().required('Parola este necesară').min(8, 'Parola trebuie să aibă cel puțin 8 caractere'),
-  confirmPassword: yup.string()
-    .oneOf([yup.ref('password'), null], 'Parolele trebuie să coincidă')
-    .required('Confirmarea parolei este necesară')
+  firstName: yup.string().required("Prenumele este necesar"),
+  lastName: yup.string().required("Numele este necesar"),
+  email: yup.string().email("Email invalid").required("Email-ul este necesar"),
+  password: yup
+    .string()
+    .required("Parola este necesară")
+    .min(8, "Parola trebuie să aibă cel puțin 8 caractere"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Parolele trebuie să coincidă")
+    .required("Confirmarea parolei este necesară"),
 });
 
 export default function RegisterClient() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(registerSchema),
   });
-
+  if (user) {
+    navigate("/my-account");
+  }
   const onSubmit = async (data) => {
     const { error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
-        data: { firstName: data.firstName, lastName: data.lastName, gender: null, user_role: 'client' }
-      }
+        data: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          gender: null,
+          user_role: "client",
+        },
+      },
     });
 
     if (error) {
-      toast.error('Eroare la înregistrare', {
-        ...toastStandard
+      toast.error("Eroare la înregistrare", {
+        ...toastStandard,
       });
       console.error(error.message);
     } else {
-      toast.success('🍻 Înregistrare reușită', {
-        ...toastStandard
+      toast.success("🍻 Înregistrare reușită", {
+        ...toastStandard,
       });
     }
   };
@@ -57,7 +76,10 @@ export default function RegisterClient() {
           <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
             Creaza un cont nou
           </h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 md:space-y-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label htmlFor="firstName">Prenume</label>
@@ -66,9 +88,11 @@ export default function RegisterClient() {
                   {...register("firstName")}
                   id="firstName"
                   placeholder="Andrei"
-                  className={`input ${errors.firstName ? 'is-invalid' : ''}`}
+                  className={`input ${errors.firstName ? "is-invalid" : ""}`}
                 />
-                <p className="text-red-600 text-sm">{errors.firstName?.message}</p>
+                <p className="text-red-600 text-sm">
+                  {errors.firstName?.message}
+                </p>
               </div>
               <div>
                 <label htmlFor="lastName">Nume</label>
@@ -77,9 +101,11 @@ export default function RegisterClient() {
                   {...register("lastName")}
                   id="lastName"
                   placeholder="Popescu"
-                  className={`input ${errors.lastName ? 'is-invalid' : ''}`}
+                  className={`input ${errors.lastName ? "is-invalid" : ""}`}
                 />
-                <p className="text-red-600 text-sm">{errors.lastName?.message}</p>
+                <p className="text-red-600 text-sm">
+                  {errors.lastName?.message}
+                </p>
               </div>
             </div>
             <div>
@@ -89,7 +115,7 @@ export default function RegisterClient() {
                 {...register("email")}
                 id="email"
                 placeholder="name@company.com"
-                className={`input ${errors.email ? 'is-invalid' : ''}`}
+                className={`input ${errors.email ? "is-invalid" : ""}`}
               />
               <p className="text-red-600 text-sm">{errors.email?.message}</p>
             </div>
@@ -100,7 +126,7 @@ export default function RegisterClient() {
                 {...register("password")}
                 id="password"
                 placeholder="••••••••"
-                className={`input ${errors.password ? 'is-invalid' : ''}`}
+                className={`input ${errors.password ? "is-invalid" : ""}`}
               />
               <p className="text-red-600 text-sm">{errors.password?.message}</p>
             </div>
@@ -111,9 +137,13 @@ export default function RegisterClient() {
                 {...register("confirmPassword")}
                 id="confirmPassword"
                 placeholder="••••••••"
-                className={`input ${errors.confirmPassword ? 'is-invalid' : ''}`}
+                className={`input ${
+                  errors.confirmPassword ? "is-invalid" : ""
+                }`}
               />
-              <p className="text-red-600 text-sm">{errors.confirmPassword?.message}</p>
+              <p className="text-red-600 text-sm">
+                {errors.confirmPassword?.message}
+              </p>
             </div>
             <button
               type="submit"

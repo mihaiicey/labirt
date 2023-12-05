@@ -50,6 +50,7 @@ import { supabase } from '../supabase';
     session,
     signOut,
     user,
+    isLoading
   };
 
   return (

@@ -18,13 +18,7 @@ export default function App() {
           <Route path="/register" element={<RegisterClient />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
-          <Route
-              path="/my-account"
-              element={
-                  <PrivateRoute>
-                    <MyAccount/>
-                  </PrivateRoute>
-                }
+          <Route path="/my-account" element={<PrivateRoute><MyAccount/></PrivateRoute>}
           />
         </Routes>
 
