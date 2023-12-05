@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../contexts/Auth";
 import { ToastContainer } from "react-toastify";
 import { PrivateRoute } from "./PrivateRoute";
-import HomePage from "./Home";
+import HomePage from "./HomePage";
 import Nav from "./Nav";
 import Page404 from "../features/ui/404Page";
 import RegisterClient from "./LogReg/Reg";
