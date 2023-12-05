@@ -9,7 +9,7 @@ export default function CityDescription({ city }) {
   useEffect(() => {
     async function getCity() {
       const data = await fetch(
-        `https://ro.wikipedia.org/api/rest_v1/page/summary/sibiu`
+        `https://ro.wikipedia.org/api/rest_v1/page/summary/${wikyCity}`
       ).then((res) => res.json());
       setCityData(data);
     }
