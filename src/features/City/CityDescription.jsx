@@ -17,7 +17,7 @@ export default function CityDescription({ city }) {
         ).then((response) => {
           if (response.status !== 200) {
             setError(true);
-            toast.error('A aparut o eroare la preluarea oraselor', {
+            toast.error('A aparut o eroare la preluarea restaurantelor', {
               ...toastStandard,
             });
           }else{
