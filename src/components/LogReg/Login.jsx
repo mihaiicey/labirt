@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { supabase } from '../../supabase';
 import { toast } from 'react-toastify';
 import { toastStandard } from "../../lib/cofigs";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { HiEye, HiEyeSlash } from 'react-icons/hi2';
 import { LiaBeerSolid } from "react-icons/lia";
 const loginSchema = yup.object({
@@ -13,7 +13,8 @@ const loginSchema = yup.object({
     password: yup.string().required("Parola este necesară"),
 });
 
-export default function Login({ component: Component, ...rest }) {
+export default function Login() {
+    const navigate = useNavigate()
     const [isPassViz, setIsPassViz] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema),
@@ -34,6 +35,7 @@ export default function Login({ component: Component, ...rest }) {
                 ...toastStandard
             });
             reset({ email: '', password: '' })
+            navigate('/my-account')
         }
 
     };

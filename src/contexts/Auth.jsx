@@ -30,7 +30,7 @@ import { supabase } from '../supabase';
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session ?? null);
       setUser(session?.user)
-
+      setIsLoading(false); 
     });
 
     return () => {
