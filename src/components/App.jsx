@@ -11,6 +11,7 @@ import MyAccount from "./MyAccount";
 import Reservations from "./Reservations";
 import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
+import Locations from "./Locations";
 
 export default function App() {
   return (
@@ -24,9 +25,12 @@ export default function App() {
           <Route path="/my-account" element={<PrivateRoute component={MyAccount}/>}/>
           <Route path='/reservations' element={<PrivateRoute component={Reservations} />} />
           <Route path='/city/:cityName' element={<City />} />
+          <Route path='/locations' element={<Locations />} />
           <Route path='*' element={<Page404 />}/>
         </Routes>
-
+        <footer className="h-60">
+          {''}
+        </footer>
         <ToastContainer
           position="top-right"
           autoClose={5000}
