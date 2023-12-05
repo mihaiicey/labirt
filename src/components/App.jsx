@@ -2,12 +2,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../contexts/Auth";
 import { ToastContainer } from "react-toastify";
 import { PrivateRoute } from "./PrivateRoute";
-import HomePage from "./home";
+import HomePage from "./Home";
 import Nav from "./Nav";
+import Page404 from "../features/ui/404Page";
 import RegisterClient from "./LogReg/Reg";
 import Login from "./LogReg/Login";
 import MyAccount from "./MyAccount";
 import Reservations from "./Reservations";
+import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
 
 export default function App() {
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/my-account" element={<PrivateRoute component={MyAccount}/>}/>
           <Route path='/reservations' element={<PrivateRoute component={Reservations} />} />
+          <Route path='/city/:cityName' element={<City />} />
+          <Route path='*' element={<Page404 />}/>
         </Routes>
 
         <ToastContainer

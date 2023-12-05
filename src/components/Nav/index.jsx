@@ -17,7 +17,7 @@ export default function Nav() {
                         <menu className='flex gap-4 font-semibold'>
                             {navItems.map((item) => (
                                 <li key={item.link}>
-                                    <BrandNavLink to={`/restaurante/${item.link}`}>
+                                    <BrandNavLink to={`/city/${item.link}`}>
                                         {item.name}
                                     </BrandNavLink>
                                 </li>
