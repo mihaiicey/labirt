@@ -35,3 +35,6 @@ input, select {
 .restList{
   @apply absolute rounded-md transition-all bottom-3 left-3 right-3 p-3 w-auto bg-secondary/80 flex flex-col justify-end
 }
+.buttonMenMobile{
+  @apply text-black inline-block mx-1 px-[14px] py-[5px] border rounded-lg capitalize ring-white ring-opacity-60 ring-offset-2 ring-offset-black focus:outline-none
+}

@@ -22,9 +22,8 @@ export default function Restaurants({ city }) {
     getRestaurants();
   }, [city]);
   if (!restaurants || restaurants.length === 0 || error) {
-    return <div>Nu există restaurante în {city}.</div>;
+    return <div>Nu există restaurante din {city}.</div>;
   }
-  console.log(restaurants);
   return (
     <section id="restaurante" className="mt-12">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
