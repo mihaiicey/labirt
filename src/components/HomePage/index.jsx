@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 import heroImg from '../../assets/hero1.jpg';
 
@@ -23,12 +23,12 @@ export default function Home() {
           <div className="mt-8 flex justify-center">
             {user ? (<></>)
             :(
-              <Navigate
+              <NavLink
               to="/login"
               className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
             >
               Intra in cont
-            </Navigate>
+            </NavLink>
             )}
           </div>
         </div>
