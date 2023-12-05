@@ -28,7 +28,7 @@ export default function Login() {
   });
 
   if (user) {
-    navigate("/my-account");
+    navigate("/locations");
   }
 
   const onSubmit = async (data) => {

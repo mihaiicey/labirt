@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/Auth";
-
+import userImg from '../../../assets/user.jpg';
 export default function UserMen() {
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function UserMen() {
         <Menu.Button className="relative">
           {session ? (
             <img
-              src={window.location.origin + "/user.jpeg"}
+              src={userImg}
               alt="User"
               className={`w-10 h-10 rounded-full object-cover border-secondary border`}
             />
