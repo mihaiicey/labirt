@@ -1,12 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from '../contexts/Auth'
+import { AuthProvider } from "../contexts/Auth";
 import { ToastContainer } from "react-toastify";
-import HomePage from './home'
+import { PrivateRoute } from "./PrivateRoute";
+import HomePage from "./Home";
 import Nav from "./Nav";
-// import RegisterClient from "./LogReg/Register";
-import LoginUser from "./LogReg/Login";
+import Page404 from "../features/ui/404Page";
+import RegisterClient from "./LogReg/Reg";
+import Login from "./LogReg/Login";
 import MyAccount from "./MyAccount";
-import 'react-toastify/dist/ReactToastify.min.css';
+import Reservations from "./Reservations";
+import City from "./City"
+import "react-toastify/dist/ReactToastify.min.css";
 
 export default function App() {
   return (
@@ -14,12 +18,15 @@ export default function App() {
       <AuthProvider>
         <Nav />
         <Routes>
-          {/* <Route path="/register" element={<RegisterClient />} /> */}
-          <Route path="/login" element={<LoginUser />} />
-          <Route path="/register" element={<LoginUser />} />
+          <Route path="/register" element={<RegisterClient />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/my-account" element={<MyAccount/>} />
+          <Route path="/my-account" element={<PrivateRoute component={MyAccount}/>}/>
+          <Route path='/reservations' element={<PrivateRoute component={Reservations} />} />
+          <Route path='/city/:cityName' element={<City />} />
+          <Route path='*' element={<Page404 />}/>
         </Routes>
+
         <ToastContainer
           position="top-right"
           autoClose={5000}
