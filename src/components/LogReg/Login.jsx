@@ -6,17 +6,14 @@ import { supabase } from '../../supabase';
 import { toast } from 'react-toastify';
 import { toastStandard } from "../../lib/cofigs";
 import { NavLink } from 'react-router-dom';
-
 import { HiEye, HiEyeSlash } from 'react-icons/hi2';
 import { LiaBeerSolid } from "react-icons/lia";
-import { sessionCheck } from '../../hooks/sessionChec';
 const loginSchema = yup.object({
     email: yup.string().email("Email invalid").required("Email-ul este necesar"),
     password: yup.string().required("Parola este necesară"),
 });
 
 export default function Login({ component: Component, ...rest }) {
-    sessionCheck('/my-account');
     const [isPassViz, setIsPassViz] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema),

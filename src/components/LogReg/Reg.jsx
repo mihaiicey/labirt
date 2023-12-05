@@ -8,7 +8,6 @@ import { supabase } from '../../supabase';
 import { toast } from 'react-toastify';
 import { toastStandard } from "../../lib/cofigs";
 import { HiEye, HiEyeSlash } from 'react-icons/hi2';
-import { sessionCheck } from '../../hooks/sessionChec';
 
 // Schema de validare Yup
 const registerSchema = yup.object().shape({
@@ -22,7 +21,6 @@ const registerSchema = yup.object().shape({
 });
 
 export default function RegisterClient() {
-  sessionCheck('/my-account');
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(registerSchema),
