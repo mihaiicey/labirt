@@ -12,3 +12,11 @@ export function formatCityNameCuSarma(input) {
     const formattedInput = input.toLowerCase().replace(/-/g, '');
     return cityMappings[formattedInput] || "Orașul nu a fost găsit.";
   }
+
+export function calculateAverageRating(reviews){
+  if (!reviews || reviews.length === 0) return 0; // Verifică dacă există recenzii
+
+  const total = reviews.reduce((acc, review) => acc + review.rating, 0); // Suma ratingurilor
+  return total / reviews.length; // Media ratingurilor
+};
+
