@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { useParams, NavLink } from "react-router-dom";
 import CityDescription from "../../features/City/CityDescription";
 import CityNotFound from "../../features/City/CityNotFound";

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
-import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import StarRest from "../Restaurant/Stars";
+import fallbackImage from '../../assets/hero1.jpg'
+import { NavLink } from "react-router-dom";
 
 export default function Restaurants({ city }) {
   const [restaurants, setRestaurants] = useState(null);
   const [error, setError] = useState(false);
-  const fallbackImage = window.location.origin + "/hero1.jpg";
   useEffect(() => {
     async function getRestaurants() {
       const { data, error } = await supabase
@@ -33,12 +33,14 @@ export default function Restaurants({ city }) {
             style={{
               backgroundImage: `url(${restaurant?.photo_url || fallbackImage})`,
             }}
-            className="h-72 p-3 bg-white rounded-md shadow-md relative group/restaurant cursor-pointer bg-center bg-cover"
+            className="h-72 p-3 bg-white rounded-md shadow-md relative group/restaurantbg-center bg-cover"
           >
+            <NavLink to={`/restaurant/${city}/${restaurant.slug}`}>
             <div className="restList">
             <h2 className="text-white font-medium text-lg">{restaurant.name}</h2>
-            <span className="text-white text-sm">Aici o sa fie nota restaurantului</span>
+            <StarRest tripAdvId={restaurant.tripadvisor_id} />
             </div>
+            </NavLink>
           </div>
         ))}
       </div>

@@ -33,8 +33,7 @@ export default function CityDescription({ city }) {
     getCity();
   }, [city]);
 
-  console.log(error)
-  if (error) return <></>;
+  if (error) return ;
   if (!cityData) {
     return <CityDescriptionSkeleton />;
   }
@@ -43,7 +42,7 @@ export default function CityDescription({ city }) {
     return (
       <img
         src={src}
-        alt="Logo"
+        alt="city"
         className="w-full h-64 md:h-96 mx-auto md:mr-auto ml-0 rounded-md object-cover object-top"
       />
     );

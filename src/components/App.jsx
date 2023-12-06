@@ -12,7 +12,7 @@ import Reservations from "./Reservations";
 import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
-
+import Restaurant from "./Restaurant";
 export default function App() {
   return (
     <BrowserRouter>
@@ -26,6 +26,7 @@ export default function App() {
           <Route path='/reservations' element={<PrivateRoute component={Reservations} />} />
           <Route path='/city/:cityName' element={<City />} />
           <Route path='/locations' element={<Locations />} />
+          <Route path='restaurant/:cityName/:restaurantSlug' element={<Restaurant />} />
           <Route path='*' element={<Page404 />}/>
         </Routes>
         <footer className="h-60">

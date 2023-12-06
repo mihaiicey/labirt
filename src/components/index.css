@@ -20,6 +20,7 @@ p,button {
 .fontDmSans {
   font-family: "Maven Pro", sans-serif;
 }
+
 label{
   @apply block mb-2 text-sm font-medium text-gray-900 peer-disabled:cursor-not-allowed peer-disabled:opacity-70
 }
@@ -37,4 +38,26 @@ input, select {
 }
 .buttonMenMobile{
   @apply text-black inline-block mx-1 px-[14px] py-[5px] border rounded-lg capitalize ring-white ring-opacity-60 ring-offset-2 ring-offset-black focus:outline-none
+}
+.tabButton{
+  @apply px-3 py-4 focus:outline-none font-semibold
+}
+.tabButton:before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: #2098d1;
+    height: 4px;
+    transition-property: right;
+    transition-duration: .3s;
+    transition-timing-function: ease-out;
+}
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
 }
