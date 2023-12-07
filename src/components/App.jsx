@@ -8,7 +8,7 @@ import Page404 from "../features/ui/404Page";
 import RegisterClient from "./LogReg/Reg";
 import Login from "./LogReg/Login";
 import MyAccount from "./MyAccount";
-import Reservations from "./Reservations";
+import MyReservations from "./Reservations";
 import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
@@ -23,7 +23,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/my-account" element={<PrivateRoute component={MyAccount}/>}/>
-          <Route path='/reservations' element={<PrivateRoute component={Reservations} />} />
+          <Route path='/reservations' element={<PrivateRoute component={MyReservations} />} />
+          <Route path='/reservations/edit/:reservationId' element={<PrivateRoute component={<></>} />} />
           <Route path='/city/:cityName' element={<City />} />
           <Route path='/locations' element={<Locations />} />
           <Route path='restaurant/:cityName/:restaurantSlug' element={<Restaurant />} />
