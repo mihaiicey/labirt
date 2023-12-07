@@ -50,6 +50,7 @@ export default function ReservateNow({ restaurantId, restaurantName }) {
           special_requests: rsv?.specialRequests,
           special_occasions: rsv?.specialOcasion,
           serving_meal: rsv?.servingMeal,
+          reservation_status: 'pending'
         },
       ])
     if (error) {
