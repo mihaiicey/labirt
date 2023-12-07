@@ -69,7 +69,7 @@ export default function ReservateNow({ restaurantId, restaurantName }) {
     }
   };
 
-  function handleLogin() {
+const handleLogin = () =>{
     navigate("/login", { state: { from: pathname } });
   }
 
