@@ -13,7 +13,7 @@ import "react-phone-number-input/style.css";
 const userSchema = yup.object({
   firstName: yup.string().required("Prenumele este necesar"),
   lastName: yup.string().required("Numele este necesar"),
-  phone: yup.string().matches(/^\+?(\d{10,15})$/, "Număr de telefon invalid"),
+  phone: yup.string().matches(/^\+?\d[\d\s\-()]*$/, "Număr de telefon invalid"),
 });
 
 export default function MyAccount() {

@@ -9,3 +9,4 @@ export  function PrivateRoute({ component: Component, ...rest }) {
   }
   return user ?  <Component {...rest} /> : <Navigate to="/login" />
 }
+

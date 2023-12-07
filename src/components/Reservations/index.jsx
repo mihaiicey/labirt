@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../supabase";
 import { useAuth } from "../../contexts/Auth";
 import { toast } from "react-toastify";
 import { toastStandard } from "../../lib/cofigs";
 
 export default function MyReservations() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [myReservations, setMyReservations] = useState(null);
   const [refresh, setRefresh] = useState(false);
@@ -51,6 +53,9 @@ export default function MyReservations() {
       setRefresh(true);
     }
   };
+  const EditReservation = (reservationId) => {
+      
+  }
 
   return (
     <div className="container px-5 md:mx-auto mt-12">
@@ -96,7 +101,7 @@ export default function MyReservations() {
                   >
                     Anuleaza
                   </button>
-                  <button className="bg-green-600 px-2 py-1 rounded-md text-white font-medium">
+                  <button onClick={()=>navigate(`/reservations/edit/${reservation?.id}`)} className="bg-green-600 px-2 py-1 rounded-md text-white font-medium">
                     Editeaza
                   </button>
                 </div>
