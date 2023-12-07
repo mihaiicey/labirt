@@ -7,18 +7,17 @@ import {
   IoChevronForward,
   IoLocationOutline,
   IoPhonePortraitSharp,
-  IoGlobe
+  IoGlobe,
 } from "react-icons/io5";
 import { LuChefHat } from "react-icons/lu";
 import ReservateNow from "../../features/Restaurant/ReservateNow";
-import Loading from '../../features/ui/Loading';
+import Loading from "../../features/ui/Loading";
 import Description from "../../features/Restaurant/Description";
+import GoogleMap from "../../features/Restaurant/GoogleMap";
 export default function Restaurant() {
   const [restaurantD, setRestaurantD] = useState(null);
-  const [error, setError] = useState(false)
-
+  const [error, setError] = useState(false);
   const { restaurantSlug, cityName } = useParams();
-
   const fallbackImage = "/cities/fallbackImage.webp";
 
   useEffect(() => {
@@ -36,7 +35,7 @@ export default function Restaurant() {
     getMyRestaurant();
   }, [restaurantSlug]);
 
-  if(!restaurantD) return <Loading/>
+  if (!restaurantD) return <Loading />;
   return (
     <div className="max-w-6xl mx-auto mt-10 px-5">
       <div id="bredcrumb">
@@ -121,26 +120,44 @@ export default function Restaurant() {
                 </Tab>
               </Tab.List>
               <Tab.Panels className={"p-3"}>
-                <Tab.Panel><Description restaurantSlug={restaurantSlug} tripAdvId={restaurantD.tripadvisor_id}/></Tab.Panel>
-                <Tab.Panel>Content 2</Tab.Panel>
+                <Tab.Panel>
+                  <Description
+                    restaurantSlug={restaurantSlug}
+                    tripAdvId={restaurantD.tripadvisor_id}
+                    description={restaurantD?.description}
+                  />
+                  <GoogleMap lat={restaurantD?.lat} lng={restaurantD?.lng} name={restaurantD.name}/>
+                </Tab.Panel>
+                <Tab.Panel>
+
+                  {/* aici review-uri */}
+                </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
           </div>
         </div>
-        <div className="w-1/4 hidden sm:block mt-20 sticky">
+        <div id='info' className="w-1/4 hidden sm:block mt-20 sticky">
           <div className="p-3 bg-gray-100 rounded-md">
             <ul className="fontDmSans space-y-1">
               <li className="flex items-center">
-                <LuChefHat className="h-4 w-auto stroke-primary" /> : {restaurantD?.type}
+                <LuChefHat className="h-4 w-auto stroke-primary" /> :{" "}
+                {restaurantD?.type}
               </li>
               <li className="flex items-center">
-                <IoPhonePortraitSharp className="h-4 w-auto fill-primary" /> : {restaurantD?.phone && (<a href={`tel:${restaurantD?.phone}`}>{restaurantD?.phone}</a>)}
+                <IoPhonePortraitSharp className="h-4 w-auto fill-primary" /> :{" "}
+                {restaurantD?.phone && (
+                  <a href={`tel:${restaurantD?.phone}`}>{restaurantD?.phone}</a>
+                )}
               </li>
               <li className="flex items-center">
-                <IoLocationOutline className="h-4 w-auto stroke-primary" /> : {restaurantD?.address}, {restaurantD?.city}
+                <IoLocationOutline className="h-4 w-auto stroke-primary" /> :{" "}
+                {restaurantD?.address}, {restaurantD?.city}
               </li>
               <li className="flex items-center">
-                <IoGlobe className="h-4 w-auto fill-primary" /> : {restaurantD?.website && (<a href={restaurantD?.website}>{restaurantD?.name} - web</a>)}
+                <IoGlobe className="h-4 w-auto fill-primary" /> :{" "}
+                {restaurantD?.website && (
+                  <a href={restaurantD?.website}>{restaurantD?.name} - web</a>
+                )}
               </li>
             </ul>
             <ReservateNow restaurantId={1} restaurantName={restaurantSlug} />

@@ -11,7 +11,6 @@ export default function StartRest({tripAdvId}) {
           method: 'GET',
           referrer: 'http://devlocal.icey.dev'
         });
-  
         if (!response.ok) {
           throw new Error('Eroare la preluarea datelor');
         }
