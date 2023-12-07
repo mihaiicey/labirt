@@ -45,6 +45,15 @@ input, select {
 .errorMessage{
   @apply text-red-600 text-sm
 }
+.pending{
+  @apply bg-yellow-500
+}
+.aproved {
+  @apply bg-green-500
+}
+.canceled {
+  @apply bg-primary text-white
+}
 .tabButton:before{
     content: "";
     position: absolute;
