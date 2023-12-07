@@ -6,7 +6,6 @@ function formatDay(day) {
   }
   
   function formatTime(time) {
-    // Formatăm ora din 0800 în 08:00
     return `${time.substring(0, 2)}:${time.substring(2)}`;
   }
   
