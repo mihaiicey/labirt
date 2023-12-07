@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 import { useForm } from "react-hook-form";
@@ -28,6 +29,8 @@ const registerSchema = yup.object().shape({
 
 export default function RegisterClient() {
   const navigate = useNavigate();
+  const [isPassViz, setIsPassViz] = useState(false);
+
   const { user } = useAuth();
   const {
     register,
@@ -64,7 +67,9 @@ export default function RegisterClient() {
       });
     }
   };
-
+  function togglePasswordVizible() {
+    setIsPassViz(!isPassViz);
+  }
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10 md:mt-24 lg:py-0">
       <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
@@ -89,9 +94,7 @@ export default function RegisterClient() {
                   placeholder="Andrei"
                   className={`input ${errors.firstName ? "is-invalid" : ""}`}
                 />
-                <p className="errorMessage">
-                  {errors.firstName?.message}
-                </p>
+                <p className="errorMessage">{errors.firstName?.message}</p>
               </div>
               <div>
                 <label htmlFor="lastName">Nume</label>
@@ -102,9 +105,7 @@ export default function RegisterClient() {
                   placeholder="Popescu"
                   className={`input ${errors.lastName ? "is-invalid" : ""}`}
                 />
-                <p className="errorMessage">
-                  {errors.lastName?.message}
-                </p>
+                <p className="errorMessage">{errors.lastName?.message}</p>
               </div>
             </div>
             <div>
@@ -118,21 +119,28 @@ export default function RegisterClient() {
               />
               <p className="errorMessage">{errors.email?.message}</p>
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="password">Parola</label>
               <input
-                type="password"
+                type={isPassViz ? "text" : "password"}
                 {...register("password")}
                 id="password"
                 placeholder="••••••••"
                 className={`input ${errors.password ? "is-invalid" : ""}`}
               />
+              <button
+                type="button"
+                className="w-4 h-4 absolute right-3 bottom-3"
+                onClick={togglePasswordVizible}
+              >
+                {isPassViz ? <HiEye /> : <HiEyeSlash />}
+              </button>
               <p className="errorMessage">{errors.password?.message}</p>
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="confirmPassword">Confirmare Parolă</label>
               <input
-                type="password"
+                type={isPassViz ? "text" : "password"}
                 {...register("confirmPassword")}
                 id="confirmPassword"
                 placeholder="••••••••"
@@ -140,9 +148,8 @@ export default function RegisterClient() {
                   errors.confirmPassword ? "is-invalid" : ""
                 }`}
               />
-              <p className="errorMessage">
-                {errors.confirmPassword?.message}
-              </p>
+
+              <p className="errorMessage">{errors.confirmPassword?.message}</p>
             </div>
             <button
               type="submit"

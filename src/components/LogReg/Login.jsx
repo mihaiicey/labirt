@@ -51,7 +51,10 @@ export default function Login() {
       navigate(from);
     }
   };
-   
+  function togglePasswordVizible() {
+    setIsPassViz(!isPassViz)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10 md:mt-24 lg:py-0">
       <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
