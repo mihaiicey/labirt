@@ -27,7 +27,6 @@ export default function Description({ tripAdvId, description }) {
     getReviews();
   }, [tripAdvId]);
 
-  console.log(details);
   return (
     <div>
       <div id="description">

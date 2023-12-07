@@ -6,9 +6,10 @@ import * as yup from "yup";
 import { supabase } from "../../supabase";
 import { toast } from "react-toastify";
 import { toastStandard } from "../../lib/cofigs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { HiEye, HiEyeSlash } from "react-icons/hi2";
 import { LiaBeerSolid } from "react-icons/lia";
+
 const loginSchema = yup.object({
   email: yup.string().email("Email invalid").required("Email-ul este necesar"),
   password: yup.string().required("Parola este necesară"),
@@ -16,6 +17,8 @@ const loginSchema = yup.object({
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/my-account';
   const { user } = useAuth();
   const [isPassViz, setIsPassViz] = useState(false);
   const {
@@ -45,13 +48,10 @@ export default function Login() {
         ...toastStandard,
       });
       reset({ email: "", password: "" });
-      navigate("/my-account");
+      navigate(from);
     }
   };
-  function togglePasswordVizible() {
-    setIsPassViz(!isPassViz);
-  }
-
+   
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10 md:mt-24 lg:py-0">
       <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
@@ -73,7 +73,7 @@ export default function Login() {
                 {...register("email")}
                 placeholder="name@company.com"
               />
-              <p className="text-red-600 text-sm">{errors.email?.message}</p>
+              <p className="errorMessage">{errors.email?.message}</p>
             </div>
             <div className="relative">
               <label htmlFor="password">Parola</label>
@@ -89,7 +89,7 @@ export default function Login() {
               >
                 {isPassViz ? <HiEye /> : <HiEyeSlash />}
               </button>
-              <p className="text-red-600 text-sm">{errors.password?.message}</p>
+              <p className="errorMessage">{errors.password?.message}</p>
             </div>
             <button
               type="submit"

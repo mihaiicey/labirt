@@ -29,7 +29,6 @@ const registerSchema = yup.object().shape({
 export default function RegisterClient() {
   const navigate = useNavigate();
   const { user } = useAuth();
-
   const {
     register,
     handleSubmit,
@@ -90,7 +89,7 @@ export default function RegisterClient() {
                   placeholder="Andrei"
                   className={`input ${errors.firstName ? "is-invalid" : ""}`}
                 />
-                <p className="text-red-600 text-sm">
+                <p className="errorMessage">
                   {errors.firstName?.message}
                 </p>
               </div>
@@ -103,7 +102,7 @@ export default function RegisterClient() {
                   placeholder="Popescu"
                   className={`input ${errors.lastName ? "is-invalid" : ""}`}
                 />
-                <p className="text-red-600 text-sm">
+                <p className="errorMessage">
                   {errors.lastName?.message}
                 </p>
               </div>
@@ -117,7 +116,7 @@ export default function RegisterClient() {
                 placeholder="name@company.com"
                 className={`input ${errors.email ? "is-invalid" : ""}`}
               />
-              <p className="text-red-600 text-sm">{errors.email?.message}</p>
+              <p className="errorMessage">{errors.email?.message}</p>
             </div>
             <div>
               <label htmlFor="password">Parola</label>
@@ -128,7 +127,7 @@ export default function RegisterClient() {
                 placeholder="••••••••"
                 className={`input ${errors.password ? "is-invalid" : ""}`}
               />
-              <p className="text-red-600 text-sm">{errors.password?.message}</p>
+              <p className="errorMessage">{errors.password?.message}</p>
             </div>
             <div>
               <label htmlFor="confirmPassword">Confirmare Parolă</label>
@@ -141,7 +140,7 @@ export default function RegisterClient() {
                   errors.confirmPassword ? "is-invalid" : ""
                 }`}
               />
-              <p className="text-red-600 text-sm">
+              <p className="errorMessage">
                 {errors.confirmPassword?.message}
               </p>
             </div>

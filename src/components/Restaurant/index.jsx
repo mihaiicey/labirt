@@ -14,6 +14,7 @@ import ReservateNow from "../../features/Restaurant/ReservateNow";
 import Loading from "../../features/ui/Loading";
 import Description from "../../features/Restaurant/Description";
 import GoogleMap from "../../features/Restaurant/GoogleMap";
+import ReviewsRest from "../../features/Restaurant/Reviews";
 export default function Restaurant() {
   const [restaurantD, setRestaurantD] = useState(null);
   const [error, setError] = useState(false);
@@ -126,17 +127,20 @@ export default function Restaurant() {
                     tripAdvId={restaurantD.tripadvisor_id}
                     description={restaurantD?.description}
                   />
-                  <GoogleMap lat={restaurantD?.lat} lng={restaurantD?.lng} name={restaurantD.name}/>
+                  <GoogleMap
+                    lat={restaurantD?.lat}
+                    lng={restaurantD?.lng}
+                    name={restaurantD.name}
+                  />
                 </Tab.Panel>
                 <Tab.Panel>
-
-                  {/* aici review-uri */}
+                  <ReviewsRest tripAdvId={restaurantD.tripadvisor_id} />
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
           </div>
         </div>
-        <div id='info' className="w-1/4 hidden sm:block mt-20 sticky">
+        <div id="info" className="w-full sm:w-1/4 sm:block mt-20 sticky">
           <div className="p-3 bg-gray-100 rounded-md">
             <ul className="fontDmSans space-y-1">
               <li className="flex items-center">
@@ -160,7 +164,9 @@ export default function Restaurant() {
                 )}
               </li>
             </ul>
-            <ReservateNow restaurantId={1} restaurantName={restaurantSlug} />
+            <div className="hidden sm:block">
+              <ReservateNow restaurantId={restaurantD?.id} restaurantName={restaurantSlug} />
+            </div>
           </div>
         </div>
       </div>
