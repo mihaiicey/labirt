@@ -20,7 +20,7 @@ const reservationSchema = yup.object({
   servingMeal: yup.string().required("Acest câmp este obligatoriu"),
 });
 
-export default function ReservateNow({ restaurantId, restaurantName }) {
+export default function ReservateNow({ rstId, restaurantName }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { session } = useAuth();
@@ -43,7 +43,7 @@ export default function ReservateNow({ restaurantId, restaurantName }) {
       .insert([
         {
           user_uid: session?.user?.id,
-          restaurant_id: restaurantId,
+          restaurant_id: rstId,
           reservation_time: rsv?.reservationTime,
           reservation_date: rsv?.reservationDate,
           number_of_guests: rsv?.numberOfGuests,
@@ -85,6 +85,7 @@ export default function ReservateNow({ restaurantId, restaurantName }) {
       </div>
     );
   }
+  console.log(rstId)
   return (
     <>
       <button
