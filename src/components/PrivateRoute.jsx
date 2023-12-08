@@ -20,4 +20,3 @@ export function PrivateRoute({ children, allowedRoles }) {
 
   return children;
 }
-//http://localhost:5173/admin/restaurants
