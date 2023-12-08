@@ -46,13 +46,19 @@ input, select {
   @apply text-red-600 text-sm
 }
 .pending{
-  @apply bg-yellow-500
+  @apply bg-yellow-600
 }
 .aproved {
-  @apply bg-green-500
+  @apply bg-green-600
 }
 .canceled {
   @apply bg-primary text-white
+}
+thead tr th{
+  @apply px-5 py-3 border-b-2 border-gray-100 bg-gray-50 text-left text-sm font-medium text-gray-600
+}
+tbody tr td {
+  @apply px-5 py-5 border-b border-gray-200 bg-white text-sm
 }
 .tabButton:before{
     content: "";

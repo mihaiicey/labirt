@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { supabase } from "../../supabase";
 import { useAuth } from "../../contexts/Auth";
 import { toast } from "react-toastify";
@@ -96,9 +98,12 @@ export default function MyReservations() {
                   >
                     Anuleaza
                   </button>
-                  <button className="bg-green-600 px-2 py-1 rounded-md text-white font-medium">
+                  <NavLink
+                    to={`/reservations/edit/${reservation?.id}/${reservation?.restaurants?.name}`}
+                    className="bg-green-600 px-2 py-1 rounded-md text-white font-medium"
+                  >
                     Editeaza
-                  </button>
+                  </NavLink>
                 </div>
               )}
             </div>

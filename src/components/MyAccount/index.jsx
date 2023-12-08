@@ -13,17 +13,17 @@ import "react-phone-number-input/style.css";
 const userSchema = yup.object({
   firstName: yup.string().required("Prenumele este necesar"),
   lastName: yup.string().required("Numele este necesar"),
-  phone: yup.string().matches(/^\+?(\d{10,15})$/, "Număr de telefon invalid"),
+  phone: yup.string().matches(/^\+?\d[\d\s\-()]*$/, "Număr de telefon invalid"),
 });
 
 export default function MyAccount() {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch
+    watch,
   } = useForm({
     resolver: yupResolver(userSchema),
   });
@@ -41,7 +41,7 @@ export default function MyAccount() {
   const onSubmit = async (formData) => {
     const { data, error } = await supabase.auth.updateUser({
       data: {
-        phone: formData.phone, // am setat telefonul in user_metadata..daca folosesc campul phone din SUpabase, trebuie sa platesc pentru SMS_uri
+        phone: formData.phone,
         firstName: formData.firstName,
         lastName: formData.lastName,
       },
@@ -52,7 +52,6 @@ export default function MyAccount() {
         ...toastStandard,
       });
     } else if (data) {
-      console.log(data);
       toast.success(`Date actualizate 🤩`, {
         ...toastStandard,
       });
@@ -63,39 +62,41 @@ export default function MyAccount() {
       <h1 className="text-xl sm:text-3xl font-semibold pb-1 border-b-2 border-b-primary">
         Profilul meu{" "}
         <span className="text-base">
-          - {user?.user_metadata?.user_role || user}
+          - {user?.user_metadata?.user_role || user.email}
         </span>
       </h1>
-    <div className="max-w-4xl">
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="firstName">Prenume</label>
-            <input {...register("firstName")} type="text" />
-            <p className="text-red-600 text-sm">{errors.firstName?.message}</p>
+      <div className="max-w-4xl">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="firstName">Prenume</label>
+              <input {...register("firstName")} type="text" />
+              <p className="text-red-600 text-sm">
+                {errors.firstName?.message}
+              </p>
+            </div>
+            <div>
+              <label htmlFor="lastName">Nume</label>
+              <input {...register("lastName")} type="text" />
+              <p className="text-red-600 text-sm">{errors.lastName?.message}</p>
+            </div>
           </div>
+          <UserEmailProfile email={user.email} />
           <div>
-            <label htmlFor="lastName">Nume</label>
-            <input {...register("lastName")} type="text" />
-            <p className="text-red-600 text-sm">{errors.lastName?.message}</p>
+            <PhoneInput
+              {...register("phone")}
+              value={phone}
+              onChange={(value) => setValue("phone", value)}
+              international
+              defaultCountry="RO"
+            />
+            <p className="text-red-600 text-sm">{errors.phone?.message}</p>
           </div>
-        </div>
-        <UserEmailProfile email={user.email} />
-        <div>
-          <PhoneInput
-            {...register("phone")}
-            value={phone}
-            onChange={(value) => setValue("phone", value)}
-            international
-            defaultCountry="RO"
-          />
-          <p className="text-red-600 text-sm">{errors.phone?.message}</p>
-        </div>
-        <button type="submit" className="buttonRed">
-          Actualizează
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="buttonRed">
+            Actualizează
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

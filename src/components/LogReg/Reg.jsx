@@ -50,8 +50,6 @@ export default function RegisterClient() {
         data: {
           firstName: data.firstName,
           lastName: data.lastName,
-          gender: null,
-          user_role: "client",
         },
       },
     });
