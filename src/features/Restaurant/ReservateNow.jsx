@@ -23,7 +23,7 @@ const reservationSchema = yup.object({
 export default function ReservateNow({ rstId, restaurantName }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { session, isLoading } = useAuth();
+  const { session } = useAuth();
   let [isOpen, setIsOpen] = useState(false);
   const {
     register,
