@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
 import Restaurant from "./Restaurant";
 import EditReservationCl from "./Reservations/edit";
-import MyRestaurants from './Restaurant/Admin/index'
+import MyRestaurants from './Admin/MyRestaurants/index'
 export default function App() {
   return (
     <BrowserRouter>
