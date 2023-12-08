@@ -30,10 +30,6 @@ export default function Login() {
     resolver: yupResolver(loginSchema),
   });
 
-  if (user) {
-    navigate("/locations");
-  }
-
   const onSubmit = async (data) => {
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,

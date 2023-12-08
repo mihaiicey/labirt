@@ -3,18 +3,18 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/Auth";
-import userImg from '../../../assets/user.jpg';
+import userImg from "../../../assets/user.jpg";
+
 export default function UserMen() {
   const navigate = useNavigate();
 
   const [customOpen, setCustomOpen] = useState(false);
-  const { session, signOut } = useAuth();
+  const { session, user, userRole, signOut } = useAuth();
 
   async function handleSignOut() {
     await signOut();
     navigate("/login");
   }
-
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -48,7 +48,9 @@ export default function UserMen() {
                 {({ active }) => (
                   <NavLink
                     to="/login"
-                    className={`${ active ? "text-primary underline" : "text-gray-900"} dropdownLink`}
+                    className={`${
+                      active ? "text-primary underline" : "text-gray-900"
+                    } dropdownLink`}
                   >
                     Intra in cont
                   </NavLink>
@@ -58,7 +60,9 @@ export default function UserMen() {
                 {({ active }) => (
                   <NavLink
                     to="/register"
-                    className={`${ active ? "text-primary underline" : "text-gray-900"} dropdownLink`}
+                    className={`${
+                      active ? "text-primary underline" : "text-gray-900"
+                    } dropdownLink`}
                   >
                     Creaza cont
                   </NavLink>
@@ -69,11 +73,14 @@ export default function UserMen() {
 
           {session != null && (
             <>
+              <div className="p-2 border-b border-gray-100 text-sm">Salut {user?.user_metadata?.firstName}</div>
               <Menu.Item>
                 {({ active }) => (
                   <NavLink
                     to="/my-account"
-                    className={`${ active ? "text-primary underline" : "text-gray-900"} dropdownLink`}
+                    className={`${
+                      active ? "text-primary underline" : "text-gray-900"
+                    } dropdownLink`}
                   >
                     Contul meu
                   </NavLink>
@@ -83,18 +90,36 @@ export default function UserMen() {
                 {({ active }) => (
                   <NavLink
                     to="/reservations"
-                    className={`${ active ? "text-primary underline" : "text-gray-900"} dropdownLink`}
+                    className={`${
+                      active ? "text-primary underline" : "text-gray-900"
+                    } dropdownLink`}
                   >
                     Rezervarile Mele
                   </NavLink>
                 )}
               </Menu.Item>
+              {(userRole === "admin" || userRole === "manager") && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <NavLink
+                      to="/admin/restaurants"
+                      className={`${
+                        active ? "text-primary underline" : "text-gray-900"
+                      } dropdownLink`}
+                    >
+                      Restaurantele Mele
+                    </NavLink>
+                  )}
+                </Menu.Item>
+              )}
               <div className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleSignOut}
-                      className={`${ active ? "text-primary underline" : "text-gray-900"} border-t border-gray-100 dropdownLink`}
+                      className={`${
+                        active ? "text-primary underline" : "text-gray-900"
+                      } border-t border-gray-100 dropdownLink`}
                     >
                       Deconectare
                     </button>
