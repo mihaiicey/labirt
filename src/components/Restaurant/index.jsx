@@ -92,7 +92,7 @@ export default function Restaurant() {
             />
           </div>
           <div id="action" className="block sm:hidden">
-            <ReservateNow restaurantId={1} restaurantName={restaurantSlug} />
+            <ReservateNow  rstId={restaurantD?.id} restaurantName={restaurantSlug} />
           </div>
           <div id="description" className="mt-4">
             <Tab.Group>
@@ -165,7 +165,7 @@ export default function Restaurant() {
               </li>
             </ul>
             <div className="hidden sm:block">
-              <ReservateNow restaurantId={restaurantD?.id} restaurantName={restaurantSlug} />
+              <ReservateNow rstId={restaurantD?.id} restaurantName={restaurantSlug} />
             </div>
           </div>
         </div>
