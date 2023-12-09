@@ -14,8 +14,8 @@ import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
 import Restaurant from "./Restaurant";
-import EditReservationCl from "./Reservations/Edit";
 import MyRestaurants from './Admin/MyRestaurants'
+import EditReservationCl from "./Reservations/Edit";
 import AddEditRestaurant from "./Admin/MyRestaurants/AddEdit";
 
 export default function App() {
