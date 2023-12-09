@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import placeholderUser from '../../assets/profile-placeholder.png'
-import StarsRating from "../ui/StarsRating";
-export default function ReviewsRest({tripAdvId}) {
+import placeholderUser from '@/assets/profile-placeholder.png'
+import StarsRating from "@/features/ui/StarsRating";
+export function ReviewsRest({tripAdvId}) {
     const [reviews, setReviews] = useState(null);
 
     useEffect(() => {
@@ -22,8 +22,9 @@ export default function ReviewsRest({tripAdvId}) {
           console.error('A apărut o eroare:', error);
         }
       }
-    
-      getReviews();
+      if(tripAdvId){
+        getReviews();
+      }
     }, [tripAdvId]); 
     if (!reviews) return(
         <div id='review' className="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">

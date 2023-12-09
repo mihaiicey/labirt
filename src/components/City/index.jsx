@@ -1,9 +1,7 @@
 import React from "react";
 import { useParams, NavLink } from "react-router-dom";
-import CityDescription from "../../features/City/CityDescription";
-import CityNotFound from "../../features/City/CityNotFound";
-import Restaurants from "../../features/City/Restaurants";
-import { navItems } from "../Nav/navItems";
+import {CityDescription, CityNotFound, Restaurants } from "@/features/City";
+import { navItems } from "@/components/Nav/navItems";
 import clsx from "clsx";
 export default function City() {
   const { cityName } = useParams();

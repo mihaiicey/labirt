@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "@/contexts/Auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { supabase } from "../../supabase";
+import { supabase } from "@/supabase";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { HiEye, HiEyeSlash } from "react-icons/hi2";
 import { LiaBeerSolid } from "react-icons/lia";
@@ -18,7 +18,7 @@ const loginSchema = yup.object({
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || '/my-account';
+  const from = location.state?.from || "/my-account";
   const { user } = useAuth();
   const [isPassViz, setIsPassViz] = useState(false);
   const {
@@ -48,7 +48,7 @@ export default function Login() {
     }
   };
   function togglePasswordVizible() {
-    setIsPassViz(!isPassViz)
+    setIsPassViz(!isPassViz);
   }
 
   return (
@@ -58,34 +58,17 @@ export default function Login() {
       </h1>
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0=">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-            Intra in cont
-          </h2>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 md:space-y-6"
-          >
+          <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Intra in cont</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
             <div>
               <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                {...register("email")}
-                placeholder="name@company.com"
-              />
+              <input type="email" {...register("email")} placeholder="name@company.com" />
               <p className="errorMessage">{errors.email?.message}</p>
             </div>
             <div className="relative">
               <label htmlFor="password">Parola</label>
-              <input
-                type={isPassViz ? "text" : "password"}
-                {...register("password")}
-                placeholder="••••••••"
-              />
-              <button
-                type="button"
-                className="w-4 h-4 absolute right-3 bottom-3"
-                onClick={togglePasswordVizible}
-              >
+              <input type={isPassViz ? "text" : "password"} {...register("password")} placeholder="••••••••" />
+              <button type="button" className="w-4 h-4 absolute right-3 bottom-3" onClick={togglePasswordVizible}>
                 {isPassViz ? <HiEye /> : <HiEyeSlash />}
               </button>
               <p className="errorMessage">{errors.password?.message}</p>
@@ -98,10 +81,7 @@ export default function Login() {
             </button>
             <p className="text-sm font-light text-gray-500">
               Nu ai cont?
-              <NavLink
-                to="/register"
-                className="ml-1 font-medium text-secondary hover:underline"
-              >
+              <NavLink to="/register" className="ml-1 font-medium text-secondary hover:underline">
                 Inregistreaza-te
               </NavLink>
             </p>

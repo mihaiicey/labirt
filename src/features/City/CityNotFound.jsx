@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export default function CityNotFound() {
+export function CityNotFound() {
   return (
     <div className="h-[80vh] w-full flex flex-col justify-center items-center">
       <h1 className="text-3xl font-extrabold text-secondary tracking-widest">

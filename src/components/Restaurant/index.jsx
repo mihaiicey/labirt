@@ -1,20 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { supabase } from "../../supabase";
+import { supabase } from "@/supabase";
 import { Tab } from "@headlessui/react";
 import { useParams, NavLink } from "react-router-dom";
-import {
-  IoHomeOutline,
-  IoChevronForward,
-  IoLocationOutline,
-  IoPhonePortraitSharp,
-  IoGlobe,
-} from "react-icons/io5";
+import { IoHomeOutline, IoChevronForward, IoLocationOutline, IoPhonePortraitSharp, IoGlobe } from "react-icons/io5";
 import { LuChefHat } from "react-icons/lu";
-import ReservateNow from "../../features/Restaurant/ReservateNow";
-import Loading from "../../features/ui/Loading";
-import Description from "../../features/Restaurant/Description";
-import GoogleMap from "../../features/Restaurant/GoogleMap";
-import ReviewsRest from "../../features/Restaurant/Reviews";
+import Loading from "@/features/ui/Loading";
+import { Description, ReservateNow, GoogleMap, ReviewsRest } from "../../features/Restaurant";
+
 export default function Restaurant() {
   const [restaurantD, setRestaurantD] = useState(null);
   const [error, setError] = useState(false);
@@ -23,10 +15,7 @@ export default function Restaurant() {
 
   useEffect(() => {
     async function getMyRestaurant() {
-      const { data, error } = await supabase
-        .from("restaurants")
-        .select()
-        .eq("slug", restaurantSlug);
+      const { data, error } = await supabase.from("restaurants").select().eq("slug", restaurantSlug);
       if (error) {
         setError(true);
         console.log(error);
@@ -43,10 +32,7 @@ export default function Restaurant() {
         <nav>
           <ol className="flex items-center gap-1 text-sm text-gray-600">
             <li>
-              <NavLink
-                to="/locations"
-                className="block transition hover:text-gray-700"
-              >
+              <NavLink to="/locations" className="block transition hover:text-gray-700">
                 <span className="sr-only"> Locatii</span>
                 <IoHomeOutline className="h-4 w-4 fill-current" />
               </NavLink>
@@ -57,10 +43,7 @@ export default function Restaurant() {
             </li>
 
             <li>
-              <NavLink
-                to={`/city/${cityName}`}
-                className="block transition hover:text-gray-700 capitalize"
-              >
+              <NavLink to={`/city/${cityName}`} className="block transition hover:text-gray-700 capitalize">
                 {cityName}
               </NavLink>
             </li>
@@ -69,9 +52,7 @@ export default function Restaurant() {
               <IoChevronForward className="h-4 w-4" />
             </li>
             <li>
-              <span className="block transition hover:text-gray-700 capitalize underline">
-                {restaurantSlug}
-              </span>
+              <span className="block transition hover:text-gray-700 capitalize underline">{restaurantSlug}</span>
             </li>
           </ol>
         </nav>
@@ -88,35 +69,23 @@ export default function Restaurant() {
             <img
               src={restaurantD?.photo_url || fallbackImage}
               alt={restaurantSlug}
-              className="w-full h-64 md:h-96 mx-auto md:mr-auto ml-0 rounded-md object-cover object-top"
+              className="w-full h-64 md:h-96 mx-auto md:mr-auto ml-0 rounded-md object-cover object-center"
             />
           </div>
           <div id="action" className="block sm:hidden">
-            <ReservateNow  rstId={restaurantD?.id} restaurantName={restaurantSlug} />
+            <ReservateNow rstId={restaurantD?.id} restaurantName={restaurantSlug} />
           </div>
           <div id="description" className="mt-4">
             <Tab.Group>
               <Tab.List className={"border-b-2 border-gray-200 relative"}>
                 <Tab as={Fragment}>
                   {({ selected }) => (
-                    <button
-                      className={`tabButton ${
-                        selected ? "text-orange-500" : "text-gray-500"
-                      }`}
-                    >
-                      Descriere
-                    </button>
+                    <button className={`tabButton ${selected ? "text-orange-500" : "text-gray-500"}`}>Descriere</button>
                   )}
                 </Tab>
                 <Tab as={Fragment}>
                   {({ selected }) => (
-                    <button
-                      className={`tabButton ${
-                        selected ? "text-orange-500" : "text-gray-500"
-                      }`}
-                    >
-                      Recenzii
-                    </button>
+                    <button className={`tabButton ${selected ? "text-orange-500" : "text-gray-500"}`}>Recenzii</button>
                   )}
                 </Tab>
               </Tab.List>
@@ -127,11 +96,7 @@ export default function Restaurant() {
                     tripAdvId={restaurantD.tripadvisor_id}
                     description={restaurantD?.description}
                   />
-                  <GoogleMap
-                    lat={restaurantD?.lat}
-                    lng={restaurantD?.lng}
-                    name={restaurantD.name}
-                  />
+                  <GoogleMap lat={restaurantD?.lat} lng={restaurantD?.lng} name={restaurantD.name} />
                 </Tab.Panel>
                 <Tab.Panel>
                   <ReviewsRest tripAdvId={restaurantD.tripadvisor_id} />
@@ -144,24 +109,19 @@ export default function Restaurant() {
           <div className="p-3 bg-gray-100 rounded-md">
             <ul className="fontDmSans space-y-1">
               <li className="flex items-center">
-                <LuChefHat className="h-4 w-auto stroke-primary" /> :{" "}
-                {restaurantD?.type}
+                <LuChefHat className="h-4 w-auto stroke-primary" /> : {restaurantD?.type}
               </li>
               <li className="flex items-center">
                 <IoPhonePortraitSharp className="h-4 w-auto fill-primary" /> :{" "}
-                {restaurantD?.phone && (
-                  <a href={`tel:${restaurantD?.phone}`}>{restaurantD?.phone}</a>
-                )}
+                {restaurantD?.phone && <a href={`tel:${restaurantD?.phone}`}>{restaurantD?.phone}</a>}
               </li>
               <li className="flex items-center">
-                <IoLocationOutline className="h-4 w-auto stroke-primary" /> :{" "}
-                {restaurantD?.address}, {restaurantD?.city}
+                <IoLocationOutline className="h-4 w-auto stroke-primary" /> : {restaurantD?.address},{" "}
+                {restaurantD?.city}
               </li>
               <li className="flex items-center">
                 <IoGlobe className="h-4 w-auto fill-primary" /> :{" "}
-                {restaurantD?.website && (
-                  <a href={restaurantD?.website}>{restaurantD?.name} - web</a>
-                )}
+                {restaurantD?.website && <a href={restaurantD?.website}>{restaurantD?.name} - web</a>}
               </li>
             </ul>
             <div className="hidden sm:block">

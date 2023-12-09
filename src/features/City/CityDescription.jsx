@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { formatCityNameCuSarma } from "../../lib/helpers";
-import CityDescriptionSkeleton from "./CityDescriptionSkeleton";
+import { formatCityNameCuSarma } from "@/lib/helpers";
+import { CityDescriptionSkeleton } from "./CityDescriptionSkeleton";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 
-export default function CityDescription({ city }) {
+export function CityDescription({ city }) {
   const [error, setError] = useState(false);
   const [cityData, setCityData] = useState(null);
   const wikyCity = formatCityNameCuSarma(city);
