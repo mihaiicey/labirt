@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { supabase } from "../../supabase";
-import { useAuth } from "../../contexts/Auth";
+import { supabase } from "@/supabase";
+import { useAuth } from "@/contexts/Auth";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 
 export default function MyReservations() {
   const { user } = useAuth();
@@ -56,35 +56,24 @@ export default function MyReservations() {
 
   return (
     <div className="container px-5 md:mx-auto mt-12">
-      <h1 className="text-xl sm:text-3xl font-semibold pb-1 border-b-2 border-b-primary">
-        Rezervari
-      </h1>
+      <h1 className="text-xl sm:text-3xl font-semibold pb-1 border-b-2 border-b-primary">Rezervari</h1>
       <div className="mt-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {myReservations?.map((reservation) => (
-            <div
-              key={reservation.id}
-              className="rounded-md p-5 border border-gray-300"
-            >
+            <div key={reservation.id} className="rounded-md p-5 border border-gray-300">
               <div className="flex items-center justify-between border-b border-gray-300 pb-3">
-                <h3 className="font-semibold text-lg">
-                  {reservation?.restaurants?.name}
-                </h3>
-                <div
-                  className={`px-2 py-1 rounded-md font-semibold ${reservation?.reservation_status}`}
-                >
+                <h3 className="font-semibold text-lg">{reservation?.restaurants?.name}</h3>
+                <div className={`px-2 py-1 rounded-md font-semibold ${reservation?.reservation_status}`}>
                   <p className="text-sm">{reservation?.reservation_status}</p>
                 </div>
               </div>
               <div className="mt-3">
                 <p>
-                  Rezervat: {reservation?.reservation_date} ,{" "}
-                  {reservation.reservation_time}
+                  Rezervat: {reservation?.reservation_date} , {reservation.reservation_time}
                 </p>
                 <div className="flex sm:flex-row flex-col sm:items-center justify-between mt-3 space-y-2 sm:space-y-0">
                   <p className="text-sm">
-                    {reservation?.restaurants?.address},{" "}
-                    {reservation?.restaurants?.city}
+                    {reservation?.restaurants?.address}, {reservation?.restaurants?.city}
                   </p>
                   <p className="text-sm">{reservation?.restaurants?.phone}</p>
                 </div>

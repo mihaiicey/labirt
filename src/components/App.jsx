@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "../contexts/Auth";
+import { AuthProvider } from "@/contexts/Auth";
 import { ToastContainer } from "react-toastify";
 import { PrivateRoute } from "./PrivateRoute";
 import HomePage from "./HomePage";
 import Nav from "./Nav";
-import Page404 from "../features/ui/ErrorPage";
+import ErrorPage from "@/features/ui/ErrorPage";
+import ToBeContinued from "@/features/ui/ToBeContinued";
 import RegisterClient from "./LogReg/Reg";
 import Login from "./LogReg/Login";
 import MyAccount from "./MyAccount";
@@ -13,8 +14,10 @@ import City from "./City"
 import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
 import Restaurant from "./Restaurant";
-import EditReservationCl from "./Reservations/edit";
-import MyRestaurants from './Admin/MyRestaurants/index'
+import EditReservationCl from "./Reservations/Edit";
+import MyRestaurants from './Admin/MyRestaurants'
+import AddEditRestaurant from "./Admin/MyRestaurants/AddEdit";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -31,7 +34,10 @@ export default function App() {
           <Route path='/locations' element={<Locations />} />
           <Route path='restaurant/:cityName/:restaurantSlug' element={<Restaurant />} />
           <Route path='/admin/restaurants' element={<PrivateRoute allowedRoles={['admin','manager']}><MyRestaurants/></PrivateRoute>}/>
-          <Route path='*' element={<Page404 error={404} shortMsg={'Not Found'}/>}/>
+          <Route path='/admin/restaurants/addEdit/:id?' element={<PrivateRoute allowedRoles={['admin','manager']}><AddEditRestaurant/></PrivateRoute>}/>
+          <Route path='/admin/restaurants/reservations/:id' element={<PrivateRoute allowedRoles={['admin','manager']}><ToBeContinued/></PrivateRoute>}/>
+          
+          <Route path='*' element={<ErrorPage error={404} shortMsg={'Not Found'}/>}/>
         </Routes>
         <footer className="h-60">
           {''}

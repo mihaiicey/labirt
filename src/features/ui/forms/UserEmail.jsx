@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../../lib/cofigs";
-import { supabase } from "../../../supabase";
+import { toastStandard } from "@/lib/cofigs";
+import { supabase } from "@/supabase";
 export default function UserEmailProfile({ email }) {
   const [newEmail, setNewEmail] = useState("");
   const [isEditable, setIsEditable] = useState(false);

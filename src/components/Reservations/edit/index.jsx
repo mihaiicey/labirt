@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useAuth } from "../../../contexts/Auth";
+import { useAuth } from "@/contexts/Auth";
 import { useParams, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { supabase } from "../../../supabase";
+import { supabase } from "@/supabase";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 
 const reservationSchema = yup.object({
   numberOfGuests: yup.number().required("Numărul de persoane este necesar"),

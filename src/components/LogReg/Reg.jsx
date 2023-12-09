@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "@/contexts/Auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { LiaBeerSolid } from "react-icons/lia";
 import { NavLink } from "react-router-dom";
-import { supabase } from "../../supabase";
+import { supabase } from "@/supabase";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 import { HiEye, HiEyeSlash } from "react-icons/hi2";
 
 // Schema de validare Yup

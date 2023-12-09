@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { calculateAverageRating } from "../../lib/helpers";
-import StarsRating from "../ui/StarsRating";
-export default function StartRest({tripAdvId}) {
+import { calculateAverageRating } from "@/lib/helpers";
+import StarsRating from "@/features/ui/StarsRating";
+
+export function StartRest({tripAdvId}) {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
@@ -20,12 +21,12 @@ export default function StartRest({tripAdvId}) {
         console.error('A apărut o eroare:', error);
       }
     }
-  
-    getReviews();
+    if(tripAdvId){
+      getReviews();
+    }
   }, [tripAdvId]); 
   
   if (!reviews) return;
-  
   return (
     <>
       <span className="text-white text-sm flex"><StarsRating rating={calculateAverageRating(reviews.data)}/></span>

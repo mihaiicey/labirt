@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 import * as yup from "yup";
-import { useAuth } from "../../contexts/Auth";
-import UserEmailProfile from "../../features/ui/forms/UserEmail";
-import { supabase } from "../../supabase";
+import { useAuth } from "@/contexts/Auth";
+import UserEmailProfile from "@/features/ui/forms/UserEmail";
+import { supabase } from "@/supabase";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 

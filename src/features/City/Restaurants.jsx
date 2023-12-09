@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../supabase";
-import StarRest from "../Restaurant/Stars";
-import fallbackImage from '../../assets/hero1.jpg'
+import { supabase } from "@/supabase";
+import { StartRest } from "@/features/Restaurant";
+import fallbackImage from '@/assets/hero1.jpg'
 import { NavLink } from "react-router-dom";
 
-export default function Restaurants({ city }) {
+export function Restaurants({ city }) {
   const [restaurants, setRestaurants] = useState(null);
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -12,7 +12,8 @@ export default function Restaurants({ city }) {
       const { data, error } = await supabase
         .from("restaurants")
         .select()
-        .eq("city", city);
+        .eq("city", city)
+        .not("deleted", 'eq', true);
       if (error) {
         setError(true);
         console.log(error);
@@ -38,7 +39,7 @@ export default function Restaurants({ city }) {
             <NavLink to={`/restaurant/${city}/${restaurant.slug}`}>
             <div className="restList">
             <h2 className="text-white font-medium text-lg">{restaurant.name}</h2>
-            <StarRest tripAdvId={restaurant.tripadvisor_id} />
+            <StartRest tripAdvId={restaurant?.tripadvisor_id} />
             </div>
             </NavLink>
           </div>

@@ -37,7 +37,7 @@ function MyMapComponent({ center, zoom, name }) {
 
   return <div ref={ref} style={{ width: '100%', height: 350 }} />;
 }
-export default function GoogleMap({ lat, lng, name }) {
+export function GoogleMap({ lat, lng, name }) {
   const center = { lat: Number(lat) || 45.80403297400235, lng: Number(lng) || 24.144985604037565 };
   const zoom = lat ? 18 : 13;
 

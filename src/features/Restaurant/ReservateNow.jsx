@@ -2,13 +2,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LuCalendarHeart } from "react-icons/lu";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "@/contexts/Auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { supabase } from "../../supabase";
+import { supabase } from "@/supabase";
 import { toast } from "react-toastify";
-import { toastStandard } from "../../lib/cofigs";
+import { toastStandard } from "@/lib/cofigs";
 
 const reservationSchema = yup.object({
   numberOfGuests: yup.number().required("Numărul de persoane este necesar"),
@@ -20,7 +20,7 @@ const reservationSchema = yup.object({
   servingMeal: yup.string().required("Acest câmp este obligatoriu"),
 });
 
-export default function ReservateNow({ rstId, restaurantName }) {
+export function ReservateNow({ rstId, restaurantName }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { session } = useAuth();
@@ -38,21 +38,19 @@ export default function ReservateNow({ rstId, restaurantName }) {
     setIsOpen(!isOpen);
   }
   const onSubmit = async (rsv) => {
-    const { error } = await supabase
-      .from("reservations")
-      .insert([
-        {
-          user_uid: session?.user?.id,
-          restaurant_id: rstId,
-          reservation_time: rsv?.reservationTime,
-          reservation_date: rsv?.reservationDate,
-          number_of_guests: rsv?.numberOfGuests,
-          special_requests: rsv?.specialRequests,
-          special_occasions: rsv?.specialOcasion,
-          serving_meal: rsv?.servingMeal,
-          reservation_status: 'pending'
-        },
-      ])
+    const { error } = await supabase.from("reservations").insert([
+      {
+        user_uid: session?.user?.id,
+        restaurant_id: rstId,
+        reservation_time: rsv?.reservationTime,
+        reservation_date: rsv?.reservationDate,
+        number_of_guests: rsv?.numberOfGuests,
+        special_requests: rsv?.specialRequests,
+        special_occasions: rsv?.specialOcasion,
+        serving_meal: rsv?.servingMeal,
+        reservation_status: "pending",
+      },
+    ]);
     if (error) {
       toast.error("Eroare la creare rezervarii", {
         ...toastStandard,
@@ -63,15 +61,15 @@ export default function ReservateNow({ rstId, restaurantName }) {
         ...toastStandard,
       });
       reset();
-      setTimeout(function(){
+      setTimeout(function () {
         handleModal();
-      },1000)
+      }, 1000);
     }
   };
 
-  const handleLogin = () =>{
+  const handleLogin = () => {
     navigate("/login", { state: { from: pathname } });
-  }
+  };
 
   if (!session) {
     return (
@@ -85,7 +83,6 @@ export default function ReservateNow({ rstId, restaurantName }) {
       </div>
     );
   }
-  console.log(rstId)
   return (
     <>
       <button
@@ -122,70 +119,49 @@ export default function ReservateNow({ rstId, restaurantName }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Rezervare la{" "}
-                    <span className="capitalize">{restaurantName}</span>
+                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                    Rezervare la <span className="capitalize">{restaurantName}</span>
                     <hr className="my-1" />
                   </Dialog.Title>
-                    <button className="py-1 px-2 absolute top-2 right-4 border border-secondary rounded-md" onClick={handleModal}>X</button>
+                  <button
+                    className="py-1 px-2 absolute top-2 right-4 border border-secondary rounded-md"
+                    onClick={handleModal}
+                  >
+                    X
+                  </button>
                   <div className="mt-2">
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div id="persons">
-                          <label htmlFor="numberOfGuests">
-                            Număr de persoane:
-                          </label>
+                          <label htmlFor="numberOfGuests">Număr de persoane:</label>
                           <select {...register("numberOfGuests")}>
-                            {Array.from({ length: 19 }, (_, i) => i + 2).map(
-                              (value) => (
-                                <option key={value} value={value}>
-                                  {value}
-                                </option>
-                              )
-                            )}
+                            {Array.from({ length: 19 }, (_, i) => i + 2).map((value) => (
+                              <option key={value} value={value}>
+                                {value}
+                              </option>
+                            ))}
                           </select>
-                          <p className="errorMessage">
-                            {errors.numberOfGuests?.message}
-                          </p>
+                          <p className="errorMessage">{errors.numberOfGuests?.message}</p>
                         </div>
                         <div id="ora">
-                          <label htmlFor="reservationTime">
-                            Ora rezervării:
-                          </label>
+                          <label htmlFor="reservationTime">Ora rezervării:</label>
                           <input type="time" {...register("reservationTime")} />
-                          <p className="errorMessage">
-                            {errors.reservationTime?.message}
-                          </p>
+                          <p className="errorMessage">{errors.reservationTime?.message}</p>
                         </div>
                         <div id="date">
-                          <label htmlFor="reservationDate">
-                            Data rezervarii:
-                          </label>
+                          <label htmlFor="reservationDate">Data rezervarii:</label>
                           <input type="date" {...register("reservationDate")} />
-                          <p className="errorMessage">
-                            {errors.reservationDate?.message}
-                          </p>
+                          <p className="errorMessage">{errors.reservationDate?.message}</p>
                         </div>
                         <div id="specialOcasion">
-                          <label htmlFor="specialOcasion">
-                            Ocazii speciale?
-                          </label>
-                          <select
-                            id="specialOcasion"
-                            name="specialOcasion"
-                            {...register("specialOcasion")}
-                          >
+                          <label htmlFor="specialOcasion">Ocazii speciale?</label>
+                          <select id="specialOcasion" name="specialOcasion" {...register("specialOcasion")}>
                             <option value="nu">Nu</option>
                             <option value="da">Da</option>
                           </select>
                         </div>
                         <div id="request">
-                          <label htmlFor="specialRequests">
-                            Solicitari speciale
-                          </label>
+                          <label htmlFor="specialRequests">Solicitari speciale</label>
                           <input
                             type="text"
                             name="specialRequests"
@@ -195,19 +171,13 @@ export default function ReservateNow({ rstId, restaurantName }) {
                         </div>
                         <div id="eat">
                           <label htmlFor="servingMeal">Serviti masa?</label>
-                          <select
-                            id="servingMeal"
-                            name="servingMeal"
-                            {...register("servingMeal")}
-                          >
+                          <select id="servingMeal" name="servingMeal" {...register("servingMeal")}>
                             <option value="">Selectează o opțiune</option>
                             <option value="da">Da</option>
                             <option value="nu">Nu</option>
                             <option value="poate">Poate</option>
                           </select>
-                          <p className="errorMessage">
-                            {errors.servingMeal?.message}
-                          </p>
+                          <p className="errorMessage">{errors.servingMeal?.message}</p>
                         </div>
                       </div>
                       <div id="button" className="mt-4">
