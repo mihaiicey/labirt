@@ -89,6 +89,7 @@ export default function AddEditRestaurant() {
         toast.success("Restaurant adaugat :)", {
           ...toastStandard,
         });
+        reset()
       } else {
         toast.error("A aparut o eroare la adaugare, incearca mai tarziu", {
           ...toastStandard,
