@@ -47,9 +47,7 @@ export default function Login() {
       navigate(from);
     }
   };
-  function togglePasswordVizible() {
-    setIsPassViz(!isPassViz);
-  }
+
 
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10 md:mt-24 lg:py-0">
@@ -68,7 +66,7 @@ export default function Login() {
             <div className="relative">
               <label htmlFor="password">Parola</label>
               <input type={isPassViz ? "text" : "password"} {...register("password")} placeholder="••••••••" />
-              <button type="button" className="w-4 h-4 absolute right-3 bottom-3" onClick={togglePasswordVizible}>
+              <button type="button" className="w-4 h-4 absolute right-3 bottom-3" onClick={()=>{setIsPassViz(!isPassViz)}}>
                 {isPassViz ? <HiEye /> : <HiEyeSlash />}
               </button>
               <p className="errorMessage">{errors.password?.message}</p>
