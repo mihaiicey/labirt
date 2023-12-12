@@ -59,10 +59,11 @@ export default function UserEmailProfile({ email }) {
       </span>
       {isEditable && (
         <button
+        type="button"
           onClick={handleUpdateClick}
           className="ml-3 border border-secondary px-1 py-0.5 rounded-md "
         >
-          Actualizează
+          Actualizează Emailul
         </button>
       )}
     </div>

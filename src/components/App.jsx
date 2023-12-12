@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
 import Restaurant from "./Restaurant";
 import MyRestaurants from './Admin/MyRestaurants'
+import ResetPassword from "./MyAccount/ResetPasswd";
 import EditReservationCl from "./Reservations/EditR";
 import AddEditRestaurant from "./Admin/MyRestaurants/AddEdit";
 
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/my-account" element={<PrivateRoute><MyAccount/></PrivateRoute>}/>
+          <Route path="/my-account/passwordReset" element={<PrivateRoute><ResetPassword/></PrivateRoute>}/>
           <Route path='/reservations' element={<PrivateRoute><MyReservations/></PrivateRoute>} />
           <Route path='/reservations/edit/:rsvId/:restaurantName' element={<PrivateRoute><EditReservationCl/></PrivateRoute>} />
           <Route path='/city/:cityName' element={<City />} />

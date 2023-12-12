@@ -19,12 +19,12 @@ const registerSchema = yup.object().shape({
   email: yup.string().email("Email invalid").required("Email-ul este necesar"),
   password: yup
     .string()
-    .required("Parola este necesară")
-    .min(8, "Parola trebuie să aibă cel puțin 8 caractere"),
+    .required("Parola este necesara")
+    .min(8, "Parola trebuie sa aiba cel putin 8 caractere"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Parolele trebuie să coincidă")
-    .required("Confirmarea parolei este necesară"),
+    .oneOf([yup.ref("password"), null], "Parolele trebuie sa coincida")
+    .required("Confirmarea parolei este necesara"),
 });
 
 export default function RegisterClient() {

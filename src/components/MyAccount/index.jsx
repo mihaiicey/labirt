@@ -9,6 +9,7 @@ import UserEmailProfile from "@/features/ui/forms/UserEmail";
 import { supabase } from "@/supabase";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { NavLink } from "react-router-dom";
 
 const userSchema = yup.object({
   firstName: yup.string().required("Prenumele este necesar"),
@@ -92,9 +93,13 @@ export default function MyAccount() {
             />
             <p className="text-red-600 text-sm">{errors.phone?.message}</p>
           </div>
+          <div className="flex justify-start items-center gap-6">
           <button type="submit" className="buttonRed">
             Actualizează
           </button>
+          <NavLink to='/my-account/passwordReset' className="text-gray-700">Schimba parola</NavLink>
+          </div>
+
         </form>
       </div>
     </div>

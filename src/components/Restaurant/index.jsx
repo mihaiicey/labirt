@@ -24,7 +24,7 @@ export default function Restaurant() {
     }
     getMyRestaurant();
   }, [restaurantSlug]);
-
+  
   if (!restaurantD) return <Loading />;
   return (
     <div className="max-w-6xl mx-auto mt-10 px-5">
