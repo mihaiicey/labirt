@@ -27,13 +27,8 @@ export default function Restaurant() {
     }
     getMyRestaurant();
   }, [restaurantSlug]);
-
-
+  
   if (!restaurantD) return <Loading />;
-
-  if (restaurantD && restaurantD.length === 0) {
-    return <ErrorPage error={404} shortMsg={'Restaurantul nu exista, incearca mai tarziu'} />;
-  }
 
   return (
     <div className="max-w-6xl mx-auto mt-10 px-5">
