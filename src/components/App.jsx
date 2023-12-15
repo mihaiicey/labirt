@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/Auth";
 import { ToastContainer } from "react-toastify";
 import { PrivateRoute } from "./PrivateRoute";
+import "react-toastify/dist/ReactToastify.min.css";
+
 import HomePage from "./HomePage";
 import Nav from "./Nav";
 import ErrorPage from "@/features/ui/ErrorPage";
@@ -11,7 +13,6 @@ import Login from "./LogReg/Login";
 import MyAccount from "./MyAccount";
 import MyReservations from "./Reservations";
 import City from "./City"
-import "react-toastify/dist/ReactToastify.min.css";
 import Locations from "./Locations";
 import Restaurant from "./Restaurant";
 import MyRestaurants from './Admin/MyRestaurants'

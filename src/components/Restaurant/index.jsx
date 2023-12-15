@@ -6,6 +6,7 @@ import { IoHomeOutline, IoChevronForward, IoLocationOutline, IoPhonePortraitShar
 import { LuChefHat } from "react-icons/lu";
 import Loading from "@/features/ui/Loading";
 import { Description, ReservateNow, GoogleMap, ReviewsRest } from "../../features/Restaurant";
+import ErrorPage from "../../features/ui/ErrorPage";
 
 export default function Restaurant() {
   const [restaurantD, setRestaurantD] = useState(null);
@@ -20,12 +21,20 @@ export default function Restaurant() {
         setError(true);
         console.log(error);
       }
-      setRestaurantD(data[0]);
+      if(data){
+        setRestaurantD(data[0]);
+      }
     }
     getMyRestaurant();
   }, [restaurantSlug]);
-  
+
+
   if (!restaurantD) return <Loading />;
+
+  if (restaurantD && restaurantD.length === 0) {
+    return <ErrorPage error={404} shortMsg={'Restaurantul nu exista, incearca mai tarziu'} />;
+  }
+
   return (
     <div className="max-w-6xl mx-auto mt-10 px-5">
       <div id="bredcrumb">

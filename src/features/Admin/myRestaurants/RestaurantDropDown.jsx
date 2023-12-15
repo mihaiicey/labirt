@@ -1,29 +1,10 @@
 import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
-import {supabase}  from '@/supabase'
-import { toast } from "react-toastify";
-import { toastStandard } from "@/lib/cofigs";
-
+import { AproveDisable } from "./AproveDisable";
 export function RestaurantDropDown({ id, state, onRefresh }) {
-
-  const deleteRest = async () => {
-    const { data, error } = await supabase
-      .from("restaurants")
-      .update({ 'deleted': !state })
-      .eq("id", id )
-      .select();
-      if(!error){
-        onRefresh(true)
-      }else{
-        toast.error("Eroare la stergere", {
-          ...toastStandard,
-        });
-        console.error(error)
-      }
-  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -43,15 +24,13 @@ export function RestaurantDropDown({ id, state, onRefresh }) {
       >
         <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-non z-[9999]">
           <div className="p-2">
-            <Menu.Item>
+            <Menu.Items>
               <NavLink className="dropdownLink" to={`/admin/restaurants/addEdit/${id}?edit=1`}>
                 Editeaza
               </NavLink>
-            </Menu.Item>
+            </Menu.Items>
             <Menu.Item>
-              <button className="dropdownLink" onClick={() => deleteRest()}>
-                {state ? "Restaureaza" : "Sterge"}
-              </button>
+              <AproveDisable state={state} restaurant={id}/>
             </Menu.Item>
             <Menu.Item>
               <NavLink className="dropdownLink" to={`/admin/restaurants/reservations/${id}`}>
