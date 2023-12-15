@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AproveDisable } from "./AproveDisable";
 export function RestaurantDropDown({ id, state, onRefresh }) {
-
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -24,13 +23,13 @@ export function RestaurantDropDown({ id, state, onRefresh }) {
       >
         <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-non z-[9999]">
           <div className="p-2">
-            <Menu.Items>
+            <Menu.Item>
               <NavLink className="dropdownLink" to={`/admin/restaurants/addEdit/${id}?edit=1`}>
                 Editeaza
               </NavLink>
-            </Menu.Items>
+            </Menu.Item>
             <Menu.Item>
-              <AproveDisable state={state} restaurant={id}/>
+              <AproveDisable state={state} restaurant={id} /> 
             </Menu.Item>
             <Menu.Item>
               <NavLink className="dropdownLink" to={`/admin/restaurants/reservations/${id}`}>
