@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { supabase } from "@/supabase";
 import { useAuth } from "@/contexts/Auth";
 import { toast } from "react-toastify";
 import { toastStandard } from "@/lib/cofigs";
+
+import { AproveDelete } from "../../features/ui/reservation/AproveDelete";
 
 export default function MyReservations() {
   const { user } = useAuth();
@@ -35,24 +38,6 @@ export default function MyReservations() {
     }
   }, [user, refresh]);
 
-  const cancelRes = async (reservationId) => {
-    const { data, error } = await supabase
-      .from("reservations")
-      .update({ reservation_status: "canceled" })
-      .eq("id", reservationId)
-      .select();
-    if (error) {
-      toast.error("Nu putem anula rezervarea", {
-        ...toastStandard,
-      });
-      console.error(error);
-    } else {
-      toast.success("Rezervare anulata", {
-        ...toastStandard,
-      });
-      setRefresh(true);
-    }
-  };
 
   return (
     <div className="container px-5 md:mx-auto mt-12">
@@ -81,12 +66,7 @@ export default function MyReservations() {
 
               {reservation?.reservation_status !== "canceled" && (
                 <div className="mt-4 flex gap-4">
-                  <button
-                    onClick={() => cancelRes(reservation?.id)}
-                    className="bg-primary px-2 py-1 rounded-md text-white font-medium"
-                  >
-                    Anuleaza
-                  </button>
+                  <AproveDelete reservation={reservation?.id} onDelete={setRefresh} />
                   <NavLink
                     to={`/reservations/edit/${reservation?.id}/${reservation?.restaurants?.name}`}
                     className="bg-green-600 px-2 py-1 rounded-md text-white font-medium"
